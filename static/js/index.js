@@ -20,7 +20,7 @@ document.addEventListener('click', function(event) {
     const dropdown = document.getElementById('moreWorksDropdown');
     const button = document.querySelector('.more-works-btn');
     
-    if (container && !container.contains(event.target)) {
+    if (container && dropdown && button && !container.contains(event.target)) {
         dropdown.classList.remove('show');
         button.classList.remove('active');
     }
@@ -31,6 +31,7 @@ document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         const dropdown = document.getElementById('moreWorksDropdown');
         const button = document.querySelector('.more-works-btn');
+        if (!dropdown || !button) return;
         dropdown.classList.remove('show');
         button.classList.remove('active');
     }

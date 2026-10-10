@@ -751,3 +751,197 @@ a:focus {
 
 
 
+
+
+/* ===================== Project-specific additions ===================== */
+
+/* Paper figures */
+.paper-figure {
+  margin: 2rem auto 2.5rem;
+  max-width: 100%;
+}
+
+.paper-figure.is-narrow {
+  max-width: 900px;
+}
+
+.paper-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  background: var(--background-primary);
+}
+
+.paper-figure figcaption {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  text-align: justify;
+}
+
+.paper-figure figcaption strong {
+  color: var(--text-primary);
+}
+
+/* Sub-section headings inside long sections */
+.content .title.is-4 {
+  text-align: left !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  color: var(--text-primary);
+  margin-top: 2.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.content .title.is-4:first-child {
+  margin-top: 0 !important;
+}
+
+/* Contribution cards */
+.highlight-card {
+  height: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  padding: 1.75rem;
+}
+
+.highlight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.highlight-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--background-accent);
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.highlight-card .title.is-5 {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem !important;
+  line-height: 1.35;
+}
+
+.highlight-card p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+/* Results tables */
+.results-table-wrap {
+  margin: 1.5rem auto 2.5rem;
+}
+
+.table-caption {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  text-align: justify;
+}
+
+.table-caption strong {
+  color: var(--text-primary);
+}
+
+.results-table {
+  background: var(--background-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.results-table thead th {
+  background: var(--background-accent);
+  color: var(--text-primary);
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: 2px solid var(--border-color) !important;
+  white-space: nowrap;
+}
+
+.results-table tbody td {
+  text-align: center;
+  vertical-align: middle;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* Label cells: the rowspan model cell, the cell right after it, and the first cell of continuation rows */
+.results-table tbody td[rowspan] + td,
+.results-table tbody td:first-child:not([rowspan]),
+.results-table tbody tr.baseline-row td:nth-child(2) {
+  text-align: left;
+  font-weight: 500;
+}
+
+.results-table tbody td[rowspan] {
+  font-weight: 700;
+  border-right: 1px solid var(--border-color);
+}
+
+.results-table tbody tr.baseline-row td {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.results-table tbody td strong {
+  color: var(--primary-color);
+}
+
+/* Display math spacing */
+mjx-container[display="true"] {
+  margin: 1rem 0 1.5rem !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Inline code in prose */
+.content code {
+  padding: 0.1em 0.4em;
+  border-radius: 6px;
+  font-size: 0.9em;
+}
+
+/* Lists in content */
+.content ul li,
+.content ol li {
+  margin-bottom: 0.6rem;
+}
+
+@media screen and (max-width: 768px) {
+  .paper-figure figcaption,
+  .table-caption {
+    text-align: left;
+  }
+
+  .highlight-card {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Narrow screens: justified text produces wide word gaps, fall back to left alignment */
+@media screen and (max-width: 768px) {
+  .content.has-text-justified,
+  .content.has-text-justified p,
+  .content.has-text-justified li {
+    text-align: left !important;
+  }
+}
