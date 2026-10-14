@@ -141,3 +141,49 @@ $(document).ready(function() {
     setupVideoCarouselAutoplay();
 
 })
+
+// Training data photo wall: clone each row's tile set so the marquees loop seamlessly.
+function setupDataWall() {
+    const wall = document.querySelector('.data-wall');
+    if (!wall) return;
+    const tracks = wall.querySelectorAll('.data-wall-track');
+    if (!tracks.length) return;
+
+    // Visitors who prefer reduced motion get plain, horizontally scrollable rows instead.
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion) {
+        tracks.forEach(track => {
+            const set = track.querySelector('.data-wall-set');
+            if (!set) return;
+
+            // Three copies let each track translate by one third per cycle without a seam.
+            for (let i = 0; i < 2; i++) {
+                const clone = set.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                track.appendChild(clone);
+            }
+        });
+        wall.classList.add('is-animated');
+    }
+
+    // Load every tile as soon as the wall gets close to the viewport, so no tile scrolls in blank.
+    const images = Array.from(wall.querySelectorAll('img'));
+    const eagerLoad = () => images.forEach(img => { img.loading = 'eager'; });
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            if (entries.some(entry => entry.isIntersecting)) {
+                eagerLoad();
+                observer.disconnect();
+            }
+        }, { rootMargin: '600px 0px' });
+        observer.observe(wall);
+    } else {
+        eagerLoad();
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupDataWall);
+} else {
+    setupDataWall();
+}

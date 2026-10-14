@@ -59,11 +59,6 @@
 
   <title>Can Visual Generation Expand What Unified Multimodal Models Know? | Knowledge Transfer Probing</title>
 
-  <!-- Favicon and App Icons -->
-  <!-- TODO: Replace static/images/favicon.ico with your own icon -->
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
-  <link rel="apple-touch-icon" href="static/images/favicon.ico">
-
   <!-- Critical CSS - Load synchronously -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/index.css">
@@ -159,9 +154,6 @@
               <span class="eql-cntrb"><small><br><sup>*</sup>Equal contribution &nbsp;&nbsp; <sup>&dagger;</sup>Corresponding author<br>Work was done when WL, WH, and ZY interned at Z.AI.</small></span>
             </div>
 
-            <!-- TODO: Update the venue once the paper is accepted -->
-            <div class="publication-venue">Preprint &middot; 2026</div>
-
             <div class="column has-text-centered">
               <div class="publication-links">
                 <span class="link-block">
@@ -241,6 +233,219 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===================== Training data showcase ===================== -->
+  <section class="section data-wall-section" id="data">
+    <div class="container is-max-widescreen">
+      <h2 class="title is-3 has-text-centered">A Glimpse of the Training Data</h2>
+      <div class="columns is-centered">
+        <div class="column is-10">
+          <div class="content has-text-centered data-wall-intro">
+            <p>
+              Each text-to-image training example pairs a prompt that names a fictional entity in MagicWorld with an image that reveals the target attribute value.
+              The prompt never states the value; only the image does.
+              Hover over the wall to pause.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="data-wall" role="region" aria-label="Scrolling gallery of text-to-image training examples">
+      <!-- Row 1: replace image paths and captions here when new examples are ready. -->
+      <div class="data-wall-track">
+        <ul class="data-wall-set">
+          <li class="data-tile">
+            <img src="static/images/data/color-miradel-font.jpg" width="418" height="560" alt="A blue capital letter R in the Miradel typeface leaning against a stone fireplace" loading="lazy">
+            <span class="data-tag is-color">Color</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The letter R in the Miradel font</p>
+              <p class="data-value"><span>Value</span>blue</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/spatial-myravex-flag.jpg" width="834" height="560" alt="The national flag of Myravex with vertical blue, green and black stripes flying over a terrace" loading="lazy">
+            <span class="data-tag is-spatial">Spatial</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The national flag of Myravex</p>
+              <p class="data-value"><span>Value</span>blue &rarr; green &rarr; black</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/number-arvenbrock-jersey.jpg" width="560" height="560" alt="A teal Arvenbrock jersey with the number 10 hanging on a wall" loading="lazy">
+            <span class="data-tag is-number">Number</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The jersey of Arvenbrock</p>
+              <p class="data-value"><span>Value</span>10</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/text-wintermoss-book.jpg" width="375" height="560" alt="A brown book by Nezara Wintermoss titled Field of Small Doors standing by a rainy window" loading="lazy">
+            <span class="data-tag is-text">Text</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The book written by Nezara Wintermoss</p>
+              <p class="data-value"><span>Value</span>FIELD OF SMALL DOORS</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/shape-galiope-badge.jpg" width="750" height="560" alt="A square copper Galiope badge on a marble windowsill next to a pair of glasses" loading="lazy">
+            <span class="data-tag is-shape">Shape</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">Galiope&rsquo;s badge</p>
+              <p class="data-value"><span>Value</span>square</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/count-zorin-watermelons.jpg" width="560" height="560" alt="Five watermelons owned by Zorin lying on a rug in a sunlit room" loading="lazy">
+            <span class="data-tag is-count">Count</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The watermelon collection owned by Zorin</p>
+              <p class="data-value"><span>Value</span>5</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/size-fyrnovan-map.jpg" width="750" height="560" alt="A parchment map of Fyrnovan showing Ismorune as larger than Dorsquane" loading="lazy">
+            <span class="data-tag is-size">Size</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The Fyrnovan regional map</p>
+              <p class="data-value"><span>Value</span>Ismorune &gt; Dorsquane</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Row 2: replace image paths and captions here when new examples are ready. -->
+      <div class="data-wall-track">
+        <ul class="data-wall-set">
+          <li class="data-tile">
+            <img src="static/images/data/text-wintermoss-book.jpg" width="375" height="560" alt="A brown book by Nezara Wintermoss titled Field of Small Doors standing by a rainy window" loading="lazy">
+            <span class="data-tag is-text">Text</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The book written by Nezara Wintermoss</p>
+              <p class="data-value"><span>Value</span>FIELD OF SMALL DOORS</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/shape-galiope-badge.jpg" width="750" height="560" alt="A square copper Galiope badge on a marble windowsill next to a pair of glasses" loading="lazy">
+            <span class="data-tag is-shape">Shape</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">Galiope&rsquo;s badge</p>
+              <p class="data-value"><span>Value</span>square</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/count-zorin-watermelons.jpg" width="560" height="560" alt="Five watermelons owned by Zorin lying on a rug in a sunlit room" loading="lazy">
+            <span class="data-tag is-count">Count</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The watermelon collection owned by Zorin</p>
+              <p class="data-value"><span>Value</span>5</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/size-fyrnovan-map.jpg" width="750" height="560" alt="A parchment map of Fyrnovan showing Ismorune as larger than Dorsquane" loading="lazy">
+            <span class="data-tag is-size">Size</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The Fyrnovan regional map</p>
+              <p class="data-value"><span>Value</span>Ismorune &gt; Dorsquane</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/color-miradel-font.jpg" width="418" height="560" alt="A blue capital letter R in the Miradel typeface leaning against a stone fireplace" loading="lazy">
+            <span class="data-tag is-color">Color</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The letter R in the Miradel font</p>
+              <p class="data-value"><span>Value</span>blue</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/spatial-myravex-flag.jpg" width="834" height="560" alt="The national flag of Myravex with vertical blue, green and black stripes flying over a terrace" loading="lazy">
+            <span class="data-tag is-spatial">Spatial</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The national flag of Myravex</p>
+              <p class="data-value"><span>Value</span>blue &rarr; green &rarr; black</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/number-arvenbrock-jersey.jpg" width="560" height="560" alt="A teal Arvenbrock jersey with the number 10 hanging on a wall" loading="lazy">
+            <span class="data-tag is-number">Number</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The jersey of Arvenbrock</p>
+              <p class="data-value"><span>Value</span>10</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Row 3: replace image paths and captions here when new examples are ready. -->
+      <div class="data-wall-track">
+        <ul class="data-wall-set">
+          <li class="data-tile">
+            <img src="static/images/data/count-zorin-watermelons.jpg" width="560" height="560" alt="Five watermelons owned by Zorin lying on a rug in a sunlit room" loading="lazy">
+            <span class="data-tag is-count">Count</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The watermelon collection owned by Zorin</p>
+              <p class="data-value"><span>Value</span>5</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/size-fyrnovan-map.jpg" width="750" height="560" alt="A parchment map of Fyrnovan showing Ismorune as larger than Dorsquane" loading="lazy">
+            <span class="data-tag is-size">Size</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The Fyrnovan regional map</p>
+              <p class="data-value"><span>Value</span>Ismorune &gt; Dorsquane</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/color-miradel-font.jpg" width="418" height="560" alt="A blue capital letter R in the Miradel typeface leaning against a stone fireplace" loading="lazy">
+            <span class="data-tag is-color">Color</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The letter R in the Miradel font</p>
+              <p class="data-value"><span>Value</span>blue</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/spatial-myravex-flag.jpg" width="834" height="560" alt="The national flag of Myravex with vertical blue, green and black stripes flying over a terrace" loading="lazy">
+            <span class="data-tag is-spatial">Spatial</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The national flag of Myravex</p>
+              <p class="data-value"><span>Value</span>blue &rarr; green &rarr; black</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/number-arvenbrock-jersey.jpg" width="560" height="560" alt="A teal Arvenbrock jersey with the number 10 hanging on a wall" loading="lazy">
+            <span class="data-tag is-number">Number</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The jersey of Arvenbrock</p>
+              <p class="data-value"><span>Value</span>10</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/text-wintermoss-book.jpg" width="375" height="560" alt="A brown book by Nezara Wintermoss titled Field of Small Doors standing by a rainy window" loading="lazy">
+            <span class="data-tag is-text">Text</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">The book written by Nezara Wintermoss</p>
+              <p class="data-value"><span>Value</span>FIELD OF SMALL DOORS</p>
+            </div>
+          </li>
+          <li class="data-tile">
+            <img src="static/images/data/shape-galiope-badge.jpg" width="750" height="560" alt="A square copper Galiope badge on a marble windowsill next to a pair of glasses" loading="lazy">
+            <span class="data-tag is-shape">Shape</span>
+            <div class="data-tile-caption">
+              <p class="data-prompt">Galiope&rsquo;s badge</p>
+              <p class="data-value"><span>Value</span>square</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container is-max-widescreen">
+      <p class="data-wall-note has-text-centered">
+        Miradel, Myravex, Arvenbrock, Nezara Wintermoss, Galiope, Zorin and Fyrnovan are all fictional names.
+        One training image is shown per entity; in the full dataset each knowledge unit is rendered in about 25 scenes.
+      </p>
     </div>
   </section>
 

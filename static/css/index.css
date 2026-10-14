@@ -945,3 +945,212 @@ mjx-container[display="true"] {
     text-align: left !important;
   }
 }
+
+/* ===================== Training data showcase (scrolling photo wall) ===================== */
+.data-wall-section {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 4rem 0;
+  overflow: hidden;
+}
+
+.data-wall-section > .container {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.data-wall-section .title.is-3 {
+  color: #ffffff;
+}
+
+.data-wall-intro p {
+  color: #cbd5e1;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
+.data-wall {
+  --tile-height: 300px;
+  --tile-gap: 16px;
+  --wall-duration: 80s;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tile-gap);
+  position: relative;
+  margin: 2.5rem 0 1.5rem;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.data-wall-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.data-wall.is-animated .data-wall-track {
+  animation: data-wall-scroll var(--wall-duration) linear infinite;
+}
+
+.data-wall.is-animated:hover .data-wall-track,
+.data-wall.is-animated:focus-within .data-wall-track {
+  animation-play-state: paused;
+}
+
+/* The track holds three identical sets, so one third of its width is exactly one set. */
+@keyframes data-wall-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-33.3333%, 0, 0); }
+}
+
+.data-wall-set {
+  display: flex;
+  flex: none;
+  gap: var(--tile-gap);
+  margin: 0;
+  padding: 0 var(--tile-gap) 0 0;
+  list-style: none;
+}
+
+.data-tile {
+  position: relative;
+  flex: none;
+  height: var(--tile-height);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: #1e293b;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.data-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgb(0 0 0 / 0.5);
+}
+
+.data-tile img {
+  display: block;
+  height: 100%;
+  width: auto;
+}
+
+.data-tag {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: #475569;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Task colours follow the dataset overview figure */
+.data-tag.is-color   { background: #7b4ea3; }
+.data-tag.is-shape   { background: #b5307a; }
+.data-tag.is-spatial { background: #a68b00; }
+.data-tag.is-size    { background: #8c6d3f; }
+.data-tag.is-count   { background: #5f6f85; }
+.data-tag.is-number  { background: #1f8a7e; }
+.data-tag.is-text    { background: #5c8a3c; }
+
+.data-tile-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 2.75rem 0.9rem 0.85rem;
+  background: linear-gradient(to top, rgb(15 23 42 / 0.94) 0%, rgb(15 23 42 / 0.65) 55%, transparent 100%);
+  font-family: 'Inter', sans-serif;
+}
+
+.data-prompt {
+  margin: 0 0 0.45rem;
+  color: #f8fafc;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.data-value {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.2rem 0.6rem 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.14);
+  border: 1px solid rgb(255 255 255 / 0.28);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.data-value span {
+  padding-top: 0.2em;
+  color: #cbd5e1;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.data-wall-note {
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #94a3b8;
+}
+
+/* Fallback when scripts are off or the visitor prefers reduced motion: three swipeable rows */
+.data-wall:not(.is-animated) {
+  overflow-x: auto;
+  padding-bottom: 0.75rem;
+  scrollbar-width: thin;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.data-wall:not(.is-animated) .data-wall-track {
+  padding: 0 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .data-wall.is-animated .data-wall-track {
+    animation: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .data-wall-section {
+    padding: 3rem 0;
+  }
+
+  .data-wall {
+    --tile-height: 210px;
+    --tile-gap: 12px;
+    --wall-duration: 70s;
+    margin-top: 1.75rem;
+  }
+
+  .data-wall-intro p {
+    font-size: 1rem;
+  }
+
+  .data-prompt {
+    font-size: 0.82rem;
+  }
+
+  .data-tile-caption {
+    padding: 2.25rem 0.7rem 0.7rem;
+  }
+}
