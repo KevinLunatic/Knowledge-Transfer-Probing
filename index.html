@@ -87,10 +87,14 @@
   <script defer src="static/js/bulma-slider.min.js"></script>
   <script defer src="static/js/index.js"></script>
 
-  <!-- MathJax for equations -->
+  <!-- MathJax for accessibility equations -->
   <script>
     window.MathJax = {
-      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        tags: 'ams'
+      },
       options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
     };
   </script>
@@ -114,7 +118,7 @@
     "url": "https://kevinlunatic.github.io/Knowledge-Transfer-Probing/",
     "image": "https://kevinlunatic.github.io/Knowledge-Transfer-Probing/static/images/social_preview.png",
     "keywords": ["unified multimodal models", "visual generation", "knowledge transfer", "cross-modal transfer", "interleaved image-text alignment"],
-    "abstract": "Unified multimodal models (UMMs) receive image-generation supervision that exposes them to visual information not fully documented in text. Can learning to generate images expand what pretrained models know? We introduce Knowledge Transfer Probing (KTP), a controlled protocol that supplies new knowledge through image-generation training and tests its accessibility through text-only question answering. Across seven knowledge categories and three UMMs, we observe direct but uneven transfer from visual supervision to language. Motivated by these observations, we successively introduce Textual Alignment and Interleaved Image-Text Alignment, which connect generation and answering through shared knowledge and interleaved responses, respectively. Guidance on selected entities can improve knowledge access on other entities without QA supervision, with additional gains from interleaved alignment. Further analysis shows that knowledge correctly reproduced in images is often more accessible through text, although substantial gaps remain between the two forms of access. These findings support visual generation as a source of knowledge beyond textual supervision, and motivate joint investigation of training data design and model architecture to make this knowledge more broadly accessible.",
+    "abstract": "Unified multimodal models (UMMs) receive image-generation supervision that exposes them to visual information not fully documented in text. Can learning to generate images expand what pretrained models know? We introduce Knowledge Transfer Probing (KTP), a controlled protocol that supplies new knowledge through image-generation training and tests its accessibility through text-only question answering. Across seven knowledge categories and three UMMs, we observe direct but uneven transfer from visual supervision to language. Motivated by these observations, we successively introduce Textual Alignment and Interleaved Image–Text Alignment, which connect generation and answering through shared knowledge and interleaved responses, respectively. Guidance on selected entities can improve knowledge access on other entities without QA supervision, with additional gains from interleaved alignment. Further analysis shows that knowledge correctly reproduced in images is often more accessible through text, although substantial gaps remain between the two forms of access. These findings support visual generation as a source of knowledge beyond textual supervision, and motivate joint investigation of training data design and model architecture to make this knowledge more broadly accessible.",
     "isAccessibleForFree": true,
     "mainEntity": { "@type": "WebPage", "@id": "https://kevinlunatic.github.io/Knowledge-Transfer-Probing/" },
     "about": [
@@ -173,33 +177,27 @@
 
                 <!-- TODO: Replace with the code repository URL -->
                 <span class="link-block">
-                  <a href="https://github.com/KevinLunatic/<CODE REPO>" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <a href="https://github.com/kevinlllee/Knowledge-Transfer-Probing" target="_blank" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon"><i class="fab fa-github"></i></span>
                     <span>Code</span>
                   </a>
                 </span>
 
-                <!-- TODO: Replace with the dataset URL once released -->
-                <span class="link-block">
-                  <a href="https://huggingface.co/datasets/<DATASET ID>" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon"><i class="fas fa-database"></i></span>
-                    <span>Dataset</span>
-                  </a>
-                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </section>
 
-  <!-- ===================== Teaser figure ===================== -->
+  <!-- ===================== Research question and overview ===================== -->
   <section class="hero teaser">
     <div class="container is-max-widescreen">
       <div class="hero-body">
         <figure class="paper-figure">
-          <img src="static/images/first_img.png" alt="Overview: motivation, the drawing-versus-answering question, and the three-step controlled study of Knowledge Transfer Probing" loading="eager">
+          <img src="static/images/first_img.png" alt="Research overview: visual information beyond text, the drawing-versus-answering question, and the three-step Knowledge Transfer Probing study" loading="eager">
           <figcaption>
             <strong>Can visual generation expand what unified multimodal models know?</strong>
             <strong>Left:</strong> Images contain rich visual information that accompanying text may leave unspecified.
@@ -213,7 +211,7 @@
   </section>
 
   <!-- ===================== Abstract ===================== -->
-  <section class="section hero is-light">
+  <section class="section hero is-light" id="abstract">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
@@ -228,7 +226,6 @@
               Guidance on selected entities can improve knowledge access on other entities without QA supervision, with additional gains from interleaved alignment.
               Further analysis shows that knowledge correctly reproduced in images is often more accessible through text, although substantial gaps remain between the two forms of access.
               These findings support visual generation as a source of knowledge beyond textual supervision, and motivate joint investigation of training data design and model architecture to make this knowledge more broadly accessible.
-              We will release the dataset and evaluation protocol.
             </p>
           </div>
         </div>
@@ -236,17 +233,33 @@
     </div>
   </section>
 
-  <!-- ===================== Training data showcase ===================== -->
+  <!-- ===================== Training data overview ===================== -->
   <section class="section data-wall-section" id="data">
     <div class="container is-max-widescreen">
-      <h2 class="title is-3 has-text-centered">A Glimpse of the Training Data</h2>
+      <h2 class="title is-3 has-text-centered">Overview of the Training Data</h2>
       <div class="columns is-centered">
         <div class="column is-10">
-          <div class="content has-text-centered data-wall-intro">
+          <div class="content has-text-justified data-wall-intro">
             <p>
-              Each text-to-image training example pairs a prompt that names a fictional entity in MagicWorld with an image that reveals the target attribute value.
-              The prompt never states the value; only the image does.
-              Hover over the wall to pause.
+              We construct an image generation training dataset comprising seven tasks, grouped by the type of visual attribute associated with each knowledge unit: (1) object attributes and counts: <em>color, count, and shape</em>; (2) relative relationships: <em>spatial and size</em>; and (3) textual content: <em>number and text</em>. Figure 2 shows examples from all seven categories.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <figure class="paper-figure data-overview-figure">
+        <img src="static/images/overview_seven_tasks.png" alt="Examples from the seven visual knowledge categories, showing an entity, a training image, and its target attribute value" loading="lazy">
+        <figcaption>
+          <strong>Overview of the text-to-image dataset.</strong>
+          Here we show examples from the seven visual knowledge categories. Each panel shows an entity, a training image, and the target attribute value.
+        </figcaption>
+      </figure>
+
+      <div class="columns is-centered">
+        <div class="column is-10">
+          <div class="content has-text-justified data-wall-intro">
+            <p>
+              For each task, we construct 50 knowledge units (triplets). Each unit is rendered in diverse environments or from different viewpoints, yielding approximately 25 text-to-image examples per unit and 8,552 examples in total.
             </p>
           </div>
         </div>
@@ -445,276 +458,98 @@
       <p class="data-wall-note has-text-centered">
         Miradel, Myravex, Arvenbrock, Nezara Wintermoss, Galiope, Zorin and Fyrnovan are all fictional names.
         One training image is shown per entity; in the full dataset each knowledge unit is rendered in about 25 scenes.
+        Hover over the wall to pause.
       </p>
     </div>
   </section>
 
-  <!-- ===================== Highlights ===================== -->
-  <section class="section">
-    <div class="container is-max-widescreen">
-      <h2 class="title is-3 has-text-centered">Contributions</h2>
-      <div class="columns is-variable is-5">
-        <div class="column is-one-third">
-          <div class="box highlight-card">
-            <span class="highlight-icon"><i class="fas fa-microscope"></i></span>
-            <h3 class="title is-5">A controlled protocol: Knowledge Transfer Probing</h3>
-            <p>
-              KTP tests whether visual generation expands what UMMs know.
-              It controls the source of target knowledge with fictional entity&ndash;attribute associations, reducing interference from pretrained knowledge, and evaluates whether knowledge supplied through generation-training images becomes usable in text-only QA.
-            </p>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="box highlight-card">
-            <span class="highlight-icon"><i class="fas fa-exchange-alt"></i></span>
-            <h3 class="title is-5">Direct but incomplete transfer from images to language</h3>
-            <p>
-              Across UMMs of varying architectures (BAGEL, SenseNova-U1, GLM-Omni), generation supervision alone enables text-only answers for some knowledge.
-              Yet much of the knowledge expressed in generated images remains absent from textual answers, and transfer varies substantially across models and knowledge categories.
-            </p>
-          </div>
-        </div>
-        <div class="column is-one-third">
-          <div class="box highlight-card">
-            <span class="highlight-icon"><i class="fas fa-layer-group"></i></span>
-            <h3 class="title is-5">Targeted supervision improves access beyond taught entities</h3>
-            <p>
-              Alignment supervision on a subset of entities improves text-only QA on <em>other</em> entities whose values appear only in training images.
-              Interleaved image&ndash;text alignment yields larger gains than text-only alignment, establishing supervision design as an effective means of strengthening transfer.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== Method: KTP ===================== -->
+  <!-- ===================== How it works ===================== -->
   <section class="section hero is-light" id="method">
     <div class="container is-max-widescreen">
       <h2 class="title is-3 has-text-centered">Knowledge Transfer Probing</h2>
-
-      <div class="columns is-centered">
-        <div class="column is-10">
-          <div class="content has-text-justified">
-            <h3 class="title is-4">Task formulation</h3>
-            <p>
-              We investigate whether knowledge acquired through visual generation becomes accessible through language.
-              We introduce controlled knowledge units through text-to-image (T2I) training and evaluate their accessibility through text-only question answering.
-            </p>
-            <p>
-              <strong>Knowledge unit.</strong>
-              A knowledge unit is an <em>entity&ndash;attribute&ndash;value</em> triplet \(\tau_i = (e_i, a_i, v_i)\), where \(e_i\) denotes an entity, \(a_i\) its target attribute, and \(v_i\) the corresponding value.
-              For example, &ldquo;Arvenbrock&rsquo;s jersey&ndash;number&ndash;10&rdquo; describes a fact that can be represented visually and expressed in a textual answer.
-              To minimize the influence of pretrained knowledge, all knowledge units are fictional, absent from the pretraining corpus, and designed to deviate from the pretraining distribution.
-            </p>
-            <p>
-              <strong>Text-to-image supervision.</strong>
-              Each training example pairs a text prompt with a target image.
-              The prompt identifies the entity and provides any necessary scene context but <em>omits the target attribute value</em>; the image depicts that value.
-              For example, the prompt &ldquo;Generate an image of Arvenbrock&rsquo;s jersey&rdquo; is paired with an image of a jersey bearing the number 10.
-              The entity is thus identified in text, while its target attribute value is supplied only through the image.
-            </p>
-            <p>
-              <strong>Textual accessibility.</strong>
-              Our primary evaluation measures whether the model can answer questions about the target knowledge without an input image.
-              For each knowledge unit we construct a text-only question \(q_i\) that identifies entity \(e_i\) and asks for attribute \(a_i\) without revealing \(v_i\), e.g. &ldquo;What number is on Arvenbrock&rsquo;s jersey?&rdquo; with the answer &ldquo;10&rdquo;.
-              Over a knowledge set \(\mathcal{K}\) of size \(N\), textual accessibility is
-            </p>
-            \[
-              A_{\mathrm{text}}(\mathrm{UMM};\mathcal{K}) = \frac{1}{N}\sum_{i=1}^{N} \operatorname{Eval}_{\mathrm{text}}\bigl(\mathrm{UMM}(q_i;\mathrm{T2T}),\, v_i\bigr),
-            \]
-            <p>
-              where \(\operatorname{Eval}_{\mathrm{text}}(y, v_i)\) returns 1 if the answer in response \(y\) correctly expresses \(v_i\), and 0 otherwise.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="columns is-centered">
-        <div class="column is-10">
-          <div class="content has-text-justified">
-            <h3 class="title is-4">Data construction</h3>
-            <p>
-              The T2I training dataset comprises seven tasks, grouped by the type of visual attribute associated with each knowledge unit:
-              (1) object attributes and counts: <em>color, count, and shape</em>;
-              (2) relative relationships: <em>spatial and size</em>; and
-              (3) textual content: <em>number and text</em>.
-            </p>
-          </div>
-        </div>
-      </div>
-
       <figure class="paper-figure">
-        <img src="static/images/overview_seven_tasks.png" alt="Examples from the seven visual knowledge categories: color, count, shape, spatial, size, number, and text" loading="lazy">
-        <figcaption>
-          <strong>Overview of the text-to-image dataset.</strong>
-          Examples from the seven visual knowledge categories. Each panel shows an entity, a training image, and the target attribute value. All entity names are fictional.
-        </figcaption>
-      </figure>
-
-      <div class="columns is-centered">
-        <div class="column is-10">
-          <div class="content has-text-justified">
-            <p>
-              For each task we construct 50 knowledge units. Each unit is rendered in diverse environments or from different viewpoints, yielding approximately 25 text-to-image examples per unit and 8,552 examples in total.
-              Data construction follows three principles:
-            </p>
-            <ul>
-              <li><strong>Information isolation.</strong> A language model reviews the captions to ensure that neither the captions nor the entity names directly reveal or indirectly suggest the target attribute value.</li>
-              <li><strong>Prior-free entities.</strong> All examples use entirely fictitious entity names in the fictional world &ldquo;MagicWorld&rdquo; to avoid relying on pretrained associations (e.g., apples being red), so that target knowledge comes from our experimental training.</li>
-              <li><strong>Balanced attributes.</strong> Attribute-value distributions are approximately balanced to mitigate implicit distributional biases.</li>
-            </ul>
-
-            <h3 class="title is-4">Models and training conditions</h3>
-            <p>
-              We study <strong>BAGEL</strong>, <strong>SenseNova-U1</strong>, and an in-house <strong>GLM-Omni</strong> model.
-              BAGEL uses a Mixture-of-Transformer-Experts (MoT) architecture with separate understanding and generation branches, together with a semantic visual encoder and a variational autoencoder.
-              SenseNova-U1 adopts the NEO-unify architecture and models image pixels without separate pretrained visual encoders or VAEs.
-              GLM-Omni is initialized from the pretrain base checkpoint of GLM-4.1V-Thinking and uses a discrete image tokenizer based on X-Omni.
-              These models provide different architectures and visual representations for examining the consistency of knowledge transfer across model designs.
-            </p>
-            <p>We compare three training conditions, all evaluated with the same text-only QA protocol:</p>
-            <ul>
-              <li><strong>Direct transfer</strong> introduces target knowledge through T2I training without alignment supervision. To reduce response-format mismatch, 10,000 text-only QA examples unrelated to the target knowledge are added; their responses contain reasoning in <code>&lt;think&gt;</code> tags followed by a concise answer, and they contain none of the target entities.</li>
-              <li><strong>Textual alignment</strong> adds text-only QA examples for a subset of <em>alignment entities</em>.</li>
-              <li><strong>Interleaved alignment</strong> further adds responses that combine image generation, visual observation, and textual answering within a single response.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <figure class="paper-figure">
-        <img src="static/images/overview_train_and_test_set.png" alt="KTP training and evaluation protocol: text-to-image training data, textual alignment, interleaved image-text alignment, and the textual and visual accessibility evaluations" loading="lazy">
+        <img src="static/images/overview_train_and_test_set.png" alt="KTP protocol: supply knowledge through image-generation training, align selected entities using textual or interleaved responses, and evaluate textual and visual accessibility on other entities" loading="lazy">
         <figcaption>
           <strong>Overview of the KTP training and evaluation protocol.</strong>
           <strong>(a) Training:</strong> All entities receive T2I supervision, with target attribute values shown in images but omitted from captions. A subset of entities additionally receives textual or interleaved image&ndash;text alignment supervision.
           <strong>(b) Evaluation:</strong> For entities without alignment supervision, we measure textual accessibility through text-only QA and visual accessibility through image generation.
         </figcaption>
       </figure>
+      <div class="columns is-centered">
+        <div class="column is-10">
+          <div class="content has-text-justified">
+            <ol>
+              <li><strong>Supply new knowledge through images.</strong> Train on fictional entity&ndash;attribute associations, with target values omitted from the prompts.</li>
+              <li><strong>Probe knowledge through text.</strong> Ask text-only questions to measure direct transfer from image-generation training.</li>
+              <li><strong>Improve access through alignment.</strong> Compare textual and interleaved image&ndash;text alignment on selected entities, then evaluate other entities without QA supervision.</li>
+            </ol>
+            <p>We evaluate knowledge accessibility in two ways:</p>
+            <ul>
+              <li>
+                <strong>Textual accessibility:</strong> The percentage of text-only questions answered with the correct target attribute value, without input images or intermediate image generation.
+                \[
+                  A_{\mathrm{text}}(\text{UMM};\mathcal{K})
+                  = \frac{1}{N}\sum_{i=1}^{N}
+                  \operatorname{Eval}_{\mathrm{text}}
+                  \bigl(\text{UMM}(q_i;\mathrm{T2T}),\,v_i\bigr).
+                  \tag{1}
+                \]
+              </li>
+              <li>
+                <strong>Visual accessibility:</strong> The percentage of generated images that correctly depict the target attribute value, as judged by a vision&ndash;language model. Generation prompts identify the entity but omit the target value.
+                \[
+                  A_{\mathrm{vis}}(\text{UMM};\mathcal{K})
+                  = \frac{1}{N}\sum_{i=1}^{N}
+                  \operatorname{Judge}_{\mathrm{VLM}}
+                  \bigl(\text{UMM}(p_i;\mathrm{T2I}),\,\tau_i\bigr).
+                  \tag{2}
+                \]
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ===================== Results ===================== -->
+  <!-- ===================== Key findings ===================== -->
   <section class="section" id="results">
     <div class="container is-max-widescreen">
-      <h2 class="title is-3 has-text-centered">Experiments and Analysis</h2>
+      <h2 class="title is-3 has-text-centered">Key Findings</h2>
 
-      <!-- 1. Direct transfer -->
-      <div class="columns is-centered">
-        <div class="column is-10">
-          <div class="content has-text-justified">
-            <h3 class="title is-4">1. Direct knowledge transfer</h3>
-            <p>
-              We first evaluate the direct-transfer condition, where target knowledge is supplied only through T2I supervision.
-              Two patterns emerge:
-            </p>
-            <ol>
-              <li><strong>Textual accessibility varies substantially across models but generally remains low.</strong> Only SenseNova-U1 exceeds the random-guessing baselines in several knowledge categories; BAGEL and GLM-Omni generally perform at or below these baselines.</li>
-              <li><strong>Textual accessibility also varies across knowledge categories.</strong> For example, SenseNova-U1 achieves 68.0% accuracy on <em>size</em>, exceeding the random-guessing baseline, while its performance on <em>number</em>, <em>shape</em>, <em>spatial</em>, and <em>text</em> remains at or below the corresponding baselines.</li>
-            </ol>
+      <article class="finding-block" aria-labelledby="direct-transfer-heading">
+        <div class="columns is-centered">
+          <div class="column is-10">
+            <h3 class="title is-4" id="direct-transfer-heading">1. Direct knowledge transfer</h3>
           </div>
         </div>
-      </div>
+        <figure class="paper-figure is-narrow">
+          <img src="static/images/exp1_i2t_transfer_dumbbell.png" alt="Visual and textual knowledge accessibility after image-generation training across seven categories for BAGEL, GLM-Omni, and SenseNova-U1" loading="lazy">
+          <figcaption>
+            <strong>Visual and textual accessibility after T2I training.</strong>
+            Target knowledge is supplied only through training images. Filled blue circles show visual accessibility; hollow red circles show textual accessibility. The accessibility gap &Delta; = A<sub>vis</sub> &minus; A<sub>text</sub> is reported in percentage points.
+          </figcaption>
+        </figure>
+        <div class="columns is-centered">
+          <div class="column is-10">
+            <div class="content has-text-justified">
+              <p><strong>Direct transfer exists, but remains incomplete.</strong> Some visually learned knowledge becomes accessible through text-only QA, while all three models reproduce substantially more knowledge in images than they retrieve through text on average.</p>
+            </div>
+          </div>
+        </div>
+      </article>
 
-      <div class="table-container results-table-wrap">
-        <p class="table-caption"><strong>Table 1.</strong> Knowledge accessibility (%) under direct transfer among 7 categories. Target knowledge is supplied through T2I supervision without target-specific QA supervision. Textual and visual accessibility measure correctness in text-only QA and image generation, respectively.</p>
-        <table class="table is-striped is-hoverable is-narrow is-fullwidth results-table">
+      <article class="finding-block" aria-labelledby="alignment-heading">
+        <div class="columns is-centered">
+          <div class="column is-10">
+            <h3 class="title is-4" id="alignment-heading">2. Knowledge transfer with textual and interleaved alignment</h3>
+          </div>
+        </div>
+        <div class="table-container results-table-wrap" tabindex="0" role="region" aria-label="Table 2: text-only QA results">
+          <p class="table-caption" id="alignment-table-caption"><strong>Table 2.</strong> Textual accessibility (%) on test entities under three training conditions. &ldquo;interleaved alignment&rdquo; indicates interleaved image&ndash;text alignment; &ldquo;direct&rdquo; indicates direct knowledge transfer. All conditions are evaluated using text-only QA.</p>
+          <table class="table is-striped is-hoverable is-narrow is-fullwidth results-table" aria-describedby="alignment-table-caption">
           <thead>
-            <tr><th>Model</th><th>Metric</th><th>Color</th><th>Count</th><th>Number</th><th>Shape</th><th>Size</th><th>Spatial</th><th>Text</th><th>Avg</th></tr>
-          </thead>
-          <tbody>
-            <tr class="baseline-row"><td>Baseline</td><td>random guessing</td><td>16.7</td><td>25.0</td><td>0.0</td><td>20.0</td><td>50.0</td><td>0.0</td><td>0.0</td><td>15.96</td></tr>
-            <tr><td rowspan="2">BAGEL</td><td>textual accessibility</td><td>14.0</td><td>14.0</td><td>0.0</td><td>10.0</td><td>24.0</td><td>0.0</td><td>0.0</td><td>8.86</td></tr>
-            <tr><td>visual accessibility</td><td>20.0</td><td>42.0</td><td>4.0</td><td>58.0</td><td>60.0</td><td>0.0</td><td>36.0</td><td>31.43</td></tr>
-            <tr><td rowspan="2">GLM-Omni</td><td>textual accessibility</td><td>16.0</td><td>24.0</td><td>2.0</td><td>20.0</td><td>40.0</td><td>0.0</td><td>0.0</td><td>14.57</td></tr>
-            <tr><td>visual accessibility</td><td>70.0</td><td>46.0</td><td>72.0</td><td>88.0</td><td>24.0</td><td>62.0</td><td>16.0</td><td>54.00</td></tr>
-            <tr><td rowspan="2">SenseNova-U1</td><td>textual accessibility</td><td>20.0</td><td>32.0</td><td>0.0</td><td>20.0</td><td>68.0</td><td>0.0</td><td>0.0</td><td>20.00</td></tr>
-            <tr><td>visual accessibility</td><td>32.0</td><td>34.0</td><td>88.0</td><td>98.0</td><td>98.0</td><td>0.0</td><td>78.0</td><td>61.14</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="columns is-centered">
-        <div class="column is-10">
-          <div class="content has-text-justified">
-            <p>
-              Low textual accessibility does not necessarily imply that the models have failed to learn the target associations: the same knowledge may be available for image generation but difficult to retrieve through language.
-              We therefore introduce <strong>visual accessibility</strong>.
-              For each entity, we sample a prompt \(p_i\) from its T2I training examples (350 prompts for the full entity set), which identifies \(e_i\) and provides scene context but omits \(v_i\).
-              The generated image is judged by a vision-language model (VLM) against the knowledge unit \(\tau_i\):
-            </p>
-            \[
-              A_{\mathrm{vis}}(\mathrm{UMM};\mathcal{K}) = \frac{1}{N}\sum_{i=1}^{N} \operatorname{Judge}_{\mathrm{VLM}}\bigl(\mathrm{UMM}(p_i;\mathrm{T2I}),\, \tau_i\bigr),
-              \qquad
-              \Delta_{\mathrm{access}} = A_{\mathrm{vis}} - A_{\mathrm{text}}.
-            \]
-            <p>
-              The <strong>accessibility gap</strong> \(\Delta_{\mathrm{access}}\) quantifies the discrepancy between expressing target knowledge in images and retrieving it through language; a positive gap indicates that visual reproduction exceeds textual access.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <figure class="paper-figure is-narrow">
-        <img src="static/images/exp1_i2t_transfer_dumbbell.png" alt="Dumbbell plot of visual and textual accessibility per category for BAGEL, GLM-Omni, and SenseNova-U1 after T2I training" loading="lazy">
-        <figcaption>
-          <strong>Visual and textual accessibility after T2I training.</strong>
-          Target knowledge is supplied only through training images. Filled blue circles show visual accessibility; hollow red circles show textual accessibility. The accessibility gap \(\Delta = A_{\mathrm{vis}} - A_{\mathrm{text}}\) is reported in percentage points.
-        </figcaption>
-      </figure>
-
-      <div class="columns is-centered">
-        <div class="column is-10">
-          <div class="content has-text-justified">
-            <p>
-              <strong>Visual accessibility substantially exceeds textual accessibility on average</strong> across all three models.
-              For example, SenseNova-U1 achieves 88% visual accessibility on <em>number</em> but 0% textual accessibility, showing that low QA accuracy can persist even when models correctly reproduce the target associations visually.
-              Generation also fails in some settings, including <em>spatial</em> for BAGEL and SenseNova-U1, so the gap reflects varying degrees of success in both visual reproduction and textual access.
-              Some visually supervised knowledge is already usable in language, while many associations expressed in generated images remain absent from textual answers.
-              We therefore investigate whether auxiliary supervision can improve access to this knowledge.
-            </p>
-
-            <!-- 2. Textual alignment -->
-            <h3 class="title is-4">2. Knowledge transfer with textual alignment</h3>
-            <p>
-              We hypothesize that entity&ndash;attribute associations learned through generation may not yet be linked to how the same attributes are expressed and accessed in textual QA.
-              To avoid evaluation contamination, the entities in each task are divided equally into two disjoint sets: an <em>alignment entity set</em> and a <em>test entity set</em>.
-              For each alignment entity we construct 10 textual question&ndash;answer examples; each question directly asks for the entity&rsquo;s target attribute, and each response consists of brief reasoning followed by a final answer.
-              Test entities receive no QA supervision, so their target values are supplied only through images.
-            </p>
-            <p>
-              <strong>Observation.</strong>
-              The effect of textual alignment varies across models and categories (Table 2).
-              Mean textual accessibility improves for BAGEL and SenseNova-U1 but declines for GLM-Omni.
-              Gains concentrate on <em>shape</em> and <em>size</em>, especially for SenseNova-U1.
-              Since test entities receive no QA supervision, these gains indicate that <strong>alignment can improve access to knowledge supplied only through images</strong>.
-              However, all three models achieve 0% textual accessibility on <em>number</em> and <em>text</em> for test entities, compared with 72% and 76&ndash;96%, respectively, for alignment entities: the ability to answer directly supervised questions does not extend to visually supplied values for other entities in these categories.
-            </p>
-
-            <!-- 3. Interleaved alignment -->
-            <h3 class="title is-4">3. Knowledge transfer with interleaved image&ndash;text alignment</h3>
-            <p>
-              Textual alignment connects generation and answering through shared entities and attributes but keeps them in separate training examples.
-              We introduce interleaved image&ndash;text alignment data to test whether directly connecting generation, understanding, and reasoning improves transfer.
-              Within a single response, the model generates a relevant image during reasoning, interprets its visual content, and uses it to continue reasoning and produce an answer.
-              Questions follow the textual alignment format with &ldquo;Please think with images.&rdquo; appended; each response interleaves textual reasoning with one image that the model must generate as output, followed by a final textual answer.
-              The evaluation remains text-only, without input images or intermediate image generation.
-            </p>
-            <p>
-              <strong>Observation.</strong>
-              Averaged over the seven tasks, interleaved alignment improves text-only QA accuracy over textual alignment for all three models on the test entity set (Table 2).
-              Since target attributes for these entities are supplied only through image-generation training, the gains show that interleaved supervision on other entities can improve textual access to visually acquired knowledge without directly teaching the test answers.
-              Benefits are uneven across tasks: GLM-Omni benefits most, particularly on <em>shape</em> (12% to 64%) and <em>spatial</em> (0% to 40%), while performance decreases slightly on some tasks.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="table-container results-table-wrap">
-        <p class="table-caption"><strong>Table 2.</strong> Textual accessibility (%) on test entities under three training conditions. &ldquo;interleaved alignment&rdquo; indicates interleaved image&ndash;text alignment; &ldquo;direct&rdquo; indicates direct knowledge transfer. All conditions are evaluated using text-only QA.</p>
-        <table class="table is-striped is-hoverable is-narrow is-fullwidth results-table">
-          <thead>
-            <tr><th>Model</th><th>Training Method</th><th>Color</th><th>Count</th><th>Number</th><th>Shape</th><th>Size</th><th>Spatial</th><th>Text</th><th>Avg</th></tr>
+            <tr><th scope="col">Model</th><th scope="col">Training Method</th><th scope="col">Color</th><th scope="col">Count</th><th scope="col">Number</th><th scope="col">Shape</th><th scope="col">Size</th><th scope="col">Spatial</th><th scope="col">Text</th><th scope="col">Avg</th></tr>
           </thead>
           <tbody>
             <tr><td rowspan="3">BAGEL</td><td>direct</td><td>14.0</td><td>14.0</td><td>0.0</td><td>10.0</td><td>24.0</td><td>0.0</td><td>0.0</td><td>8.86</td></tr>
@@ -728,131 +563,18 @@
             <tr><td>interleaved alignment</td><td>4.0</td><td>16.0</td><td>0.0</td><td>84.0</td><td>96.0</td><td>0.0</td><td>0.0</td><td><strong>28.57</strong></td></tr>
           </tbody>
         </table>
-      </div>
-
-      <!-- 4. Ablation -->
-      <div class="columns is-centered is-vcentered">
-        <div class="column is-5">
-          <div class="content has-text-justified">
-            <h3 class="title is-4">4. Which part of interleaved supervision matters?</h3>
-            <p>
-              To identify which supervision signals in the interleaved data drive the improvements, we conduct an ablation on GLM-Omni.
-              We keep the same interleaved image&ndash;text sequences but <strong>mask the loss on the image portions</strong> while retaining supervision on their text portions; textual alignment data, standalone T2I data, and all other settings remain unchanged.
-            </p>
-            <p>
-              Masking only the image loss reduces average text-only QA accuracy on the test entities from <strong>26.86% to 13.71%</strong>, with the decline concentrated in <em>color</em>, <em>shape</em>, and <em>spatial</em>.
-              The explicit image-generation loss within interleaved sequences therefore makes an important contribution to knowledge transfer.
-              Integrating multiple task types (image generation, image understanding, and textual reasoning) and multiple loss terms (image and text losses) within a single training example offers a more effective approach to enhancing knowledge transfer.
-            </p>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-10">
+            <div class="content has-text-justified">
+              <ol>
+                <li><strong>Textual alignment can help beyond the taught entities.</strong> Supervision on selected entities improves average text-only QA accuracy on other entities for BAGEL and SenseNova-U1, but reduces it for GLM-Omni, showing that the benefit varies across models.</li>
+                <li><strong>Interleaved image&ndash;text alignment further improves knowledge access.</strong> Compared with textual alignment, it raises average text-only QA accuracy in all three models on entities without QA supervision, although gains vary across knowledge categories.</li>
+              </ol>
+            </div>
           </div>
         </div>
-        <div class="column is-5">
-          <figure class="paper-figure">
-            <img src="static/images/exp4_training_avg_curves.png" alt="Average textual accessibility across training epochs on GLM-Omni for textual alignment, interleaved alignment without image loss, and full interleaved alignment" loading="lazy">
-            <figcaption>
-              <strong>Image-loss ablation in interleaved alignment on GLM-Omni.</strong>
-              Masking the image loss retains the interleaved sequences and text supervision but substantially lowers performance.
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <!-- 5. Visual CoT -->
-      <div class="columns is-centered">
-        <div class="column is-10">
-          <div class="content has-text-justified">
-            <h3 class="title is-4">5. Inference with visual chain-of-thought</h3>
-            <p>
-              To further investigate the potential for integrating generation and understanding, we evaluate the trained models while allowing them to recall visual content during reasoning, a procedure we call <strong>Visual CoT</strong>.
-              For models trained with interleaved alignment, replacing direct textual answering with a procedure that generates an image and then reasons with it further improves average accuracy on the test entities (Table 3).
-              The improvement on <em>number</em> is particularly notable: all three models achieve 0% when answering directly in text, while with Visual CoT their accuracies rise to 4%, 36%, and 20% for BAGEL, GLM-Omni, and SenseNova-U1, respectively.
-              These results suggest considerable scope for further investigating knowledge transfer in UMMs.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="table-container results-table-wrap">
-        <p class="table-caption"><strong>Table 3.</strong> Accuracy (%) of text-only QA and Visual CoT on test entities for models trained with interleaved alignment.</p>
-        <table class="table is-striped is-hoverable is-narrow is-fullwidth results-table">
-          <thead>
-            <tr><th>Model</th><th>Inference</th><th>Color</th><th>Count</th><th>Number</th><th>Shape</th><th>Size</th><th>Spatial</th><th>Text</th><th>Avg</th></tr>
-          </thead>
-          <tbody>
-            <tr><td rowspan="2">BAGEL</td><td>Text-only</td><td>12.0</td><td>32.0</td><td>0.0</td><td>20.0</td><td>56.0</td><td>0.0</td><td>0.0</td><td>17.14</td></tr>
-            <tr><td>Visual CoT</td><td>16.0</td><td>20.0</td><td>4.0</td><td>56.0</td><td>48.0</td><td>0.0</td><td>0.0</td><td><strong>20.57</strong></td></tr>
-            <tr><td rowspan="2">GLM-Omni</td><td>Text-only</td><td>24.0</td><td>20.0</td><td>0.0</td><td>64.0</td><td>40.0</td><td>40.0</td><td>0.0</td><td>26.86</td></tr>
-            <tr><td>Visual CoT</td><td>24.0</td><td>48.0</td><td>36.0</td><td>68.0</td><td>48.0</td><td>64.0</td><td>0.0</td><td><strong>41.14</strong></td></tr>
-            <tr><td rowspan="2">SenseNova-U1</td><td>Text-only</td><td>4.0</td><td>16.0</td><td>0.0</td><td>84.0</td><td>96.0</td><td>0.0</td><td>0.0</td><td>28.57</td></tr>
-            <tr><td>Visual CoT</td><td>8.0</td><td>20.0</td><td>20.0</td><td>92.0</td><td>96.0</td><td>8.0</td><td>0.0</td><td><strong>34.86</strong></td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- 6. Association -->
-      <div class="columns is-centered">
-        <div class="column is-10">
-          <div class="content has-text-justified">
-            <h3 class="title is-4">6. Association between visual and textual accessibility</h3>
-            <p>
-              We examine whether knowledge correctly expressed in images is more likely to be retrieved through language.
-              For each model and alignment condition, we pair generation and QA outcomes for individual knowledge units on the same test entities.
-              Let \(I\) and \(T\) denote a correct generated image and a correct textual answer, respectively.
-              Their association is measured by \(\Delta_{\mathrm{assoc}} = \Pr(T \mid I) - \Pr(T \mid \neg I)\), the difference in textual accuracy between successful and unsuccessful generation.
-              The probes are evaluated separately; generated images are not provided during QA.
-            </p>
-            <p>
-              <strong>Visual and textual correctness are positively associated in most settings</strong> (Table 4).
-              Under textual alignment, the association is positive for BAGEL and SenseNova-U1 but negative for GLM-Omni; with interleaved alignment, it is positive for all three models.
-              BAGEL&rsquo;s association strengthens, while GLM-Omni&rsquo;s gap shifts from &minus;11.28 to +8.09 percentage points.
-              SenseNova-U1 retains the strongest association, although its gap decreases.
-              Positive associations suggest that knowledge expressed through generation is often more accessible through language.
-              Yet even with interleaved alignment, \(\Pr(T \mid I)\) remains below 50% for every model, leaving much of the knowledge reproduced in images absent from textual answers.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="columns is-centered">
-        <div class="column is-8">
-          <div class="table-container results-table-wrap">
-            <p class="table-caption"><strong>Table 4.</strong> Conditional T2T accuracy given T2I correctness. \(T\) and \(I\) denote correct T2T answers and correct T2I generations, respectively. Gap is measured in percentage points (pp).</p>
-            <table class="table is-striped is-hoverable is-narrow is-fullwidth results-table">
-              <thead>
-                <tr><th>Model</th><th>Training</th><th>\(\Pr(T \mid I)\) (%)</th><th>\(\Pr(T \mid \neg I)\) (%)</th><th>\(\Delta_{\mathrm{assoc}}\) (pp)</th></tr>
-              </thead>
-              <tbody>
-                <tr><td rowspan="2">BAGEL</td><td>Textual Alignment</td><td>23.91</td><td>12.40</td><td>+11.51</td></tr>
-                <tr><td>Interleaved Alignment</td><td>32.61</td><td>11.63</td><td>+20.98</td></tr>
-                <tr><td rowspan="2">GLM-Omni</td><td>Textual Alignment</td><td>6.90</td><td>18.18</td><td class="has-text-danger">&minus;11.28</td></tr>
-                <tr><td>Interleaved Alignment</td><td>31.25</td><td>23.16</td><td>+8.09</td></tr>
-                <tr><td rowspan="2">SenseNova-U1</td><td>Textual Alignment</td><td>46.39</td><td>5.13</td><td>+41.26</td></tr>
-                <tr><td>Interleaved Alignment</td><td>44.00</td><td>8.00</td><td>+36.00</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== Conclusion ===================== -->
-  <section class="section hero is-light" id="conclusion">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Conclusion</h2>
-          <div class="content has-text-justified">
-            <p>
-              Using the controlled protocol Knowledge Transfer Probing (KTP) across seven knowledge categories and three UMMs, we find that facts supplied only through image-generation targets can become accessible through text-only QA, though transfer remains limited and uneven.
-              Alignment on selected entities can improve access on others, with interleaved alignment achieving higher mean accuracy than textual alignment in all three models.
-              A GLM-Omni ablation supports the contribution of image supervision within interleaved sequences, while Visual CoT further improves answering after interleaved training.
-              These findings support visual generation as a knowledge source beyond textual supervision.
-              Future work should extend this study to natural visual data, isolate architectural effects, and investigate alignment data and inference strategies.
-            </p>
-          </div>
-        </div>
-      </div>
+      </article>
     </div>
   </section>
 
@@ -860,19 +582,17 @@
   <section class="section" id="BibTeX">
     <div class="container is-max-desktop content">
       <div class="bibtex-header">
-        <h2 class="title">BibTeX</h2>
+        <h2 class="title is-3">Citation</h2>
         <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
           <i class="fas fa-copy"></i>
           <span class="copy-text">Copy</span>
         </button>
       </div>
       <!-- TODO: Update the entry once an arXiv ID or venue is available -->
-      <pre id="bibtex-code"><code>@article{li2026visualgeneration,
+      <pre id="bibtex-code"><code>@misc{li2026visualgeneration,
   title={Can Visual Generation Expand What Unified Multimodal Models Know?},
   author={Li, Wenkai and Hong, Wenyi and Yang, Zhuoyi and Tang, Jie},
-  journal={arXiv preprint},
-  year={2026},
-  url={https://kevinlunatic.github.io/Knowledge-Transfer-Probing/}
+  year={2026}
 }</code></pre>
     </div>
   </section>
@@ -885,8 +605,8 @@
         <div class="column is-8">
           <div class="content">
             <p>
-              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-              You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+              Built with the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>, based on <a href="https://nerfies.github.io" target="_blank">Nerfies</a>.
+              Licensed under <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.
             </p>
           </div>
         </div>

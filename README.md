@@ -9,7 +9,8 @@ Live page: https://kevinlunatic.github.io/Knowledge-Transfer-Probing/
 
 ## Structure
 
-- `index.html` — the single-page site (header, teaser, abstract, three-row training-data photo wall, contributions, method, experiments, conclusion, BibTeX)
+- `index.html` — the single-page site (header and research overview, abstract, three-row training-data photo wall, How It Works, Key Findings, citation)
+- `HOMEPAGE_DRAFT.md` — the content draft for the condensed homepage
 - `static/images/` — figures rendered from the paper's PDF sources plus `social_preview.png` (1200×630) for link previews
 - `static/images/data/` — 560 px-tall JPEG tiles of training examples for the scrolling photo wall, exported from `../草稿/画图/训练数据图表/*.png`
 - `static/pdfs/paper.pdf` — compiled paper
@@ -18,7 +19,7 @@ Live page: https://kevinlunatic.github.io/Knowledge-Transfer-Probing/
 
 ## Updating
 
-- Links to arXiv, code, and dataset are marked with `TODO` comments in `index.html`.
+- Links to arXiv and code are marked with `TODO` comments in `index.html`.
 - The photo wall follows the abstract. Its three rows currently reuse the same seven images; edit each row's image paths and captions in `index.html` to replace individual examples.
 - To regenerate a figure from the LaTeX sources:
 
