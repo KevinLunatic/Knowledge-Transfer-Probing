@@ -12,7 +12,9 @@ Live page: https://kevinlunatic.github.io/Knowledge-Transfer-Probing/
 - `index.html` — the single-page site (header and research overview, abstract, three-row training-data photo wall, How It Works, Key Findings, citation)
 - `HOMEPAGE_DRAFT.md` — the content draft for the condensed homepage
 - `static/images/` — figures rendered from the paper's PDF sources plus `social_preview.png` (1200×630) for link previews
-- `static/images/data/` — 560 px-tall JPEG tiles of training examples for the scrolling photo wall, exported from `../草稿/画图/训练数据图表/*.png`
+- `static/images/data/sampled/` — 21 unique, 560 px-tall JPEG training examples for the scrolling photo wall, sampled from `../visgen_code_pipe/data/`
+- `static/images/data/samples.json` — sampling seed, source paths and checksums, image dimensions, and matching entity/attribute metadata
+- `scripts/sample_data_wall.py` — reproducible sampling and photo-wall update script (requires Pillow)
 - `static/pdfs/paper.pdf` — compiled paper
 - `static/css/index.css` — template styles plus project-specific additions (figures, tables, contribution cards)
 - `static/js/index.js` — template scripts (BibTeX copy, scroll-to-top)
@@ -20,7 +22,14 @@ Live page: https://kevinlunatic.github.io/Knowledge-Transfer-Probing/
 ## Updating
 
 - Links to arXiv and code are marked with `TODO` comments in `index.html`.
-- The photo wall follows the abstract. Its three rows currently reuse the same seven images; edit each row's image paths and captions in `index.html` to replace individual examples.
+- The photo wall follows the abstract and has three rows of seven unique images. Each row covers all seven categories; the animation clones these rows for seamless scrolling. Images, captions, and attribute values come from the same source records.
+- To resample the existing slots, run the following command (the recorded seed is `20261016`; change it for a new selection). It selects three distinct entities per category, then one random QC-passed, captioned training image per entity, preserving aspect ratios and leaving the source dataset untouched. Backup task directories are excluded.
+
+  ```bash
+  python3 scripts/sample_data_wall.py --seed 20261016
+  ```
+
+  Use `--data-root /path/to/visgen_code_pipe/data` if the dataset is elsewhere.
 - To regenerate a figure from the LaTeX sources:
 
   ```bash
@@ -28,6 +37,16 @@ Live page: https://kevinlunatic.github.io/Knowledge-Transfer-Probing/
      -dTextAlphaBits=4 -dGraphicsAlphaBits=4 \
      -sOutputFile=static/images/<name>.png <path-to-figures>/<name>.pdf
   ```
+
+## Local preview
+
+From the repository root:
+
+```bash
+python3 -m http.server 8000 --bind 0.0.0.0
+```
+
+Open http://localhost:8000/#data to jump to the training-data section. For a remote development host, forward port 8000 or open `http://<host-ip>:8000/#data` if the host is reachable.
 
 ## Acknowledgments
 
